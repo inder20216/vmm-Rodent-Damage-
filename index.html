@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rodent Damage Complaint | Vishal Mega Mart</title>
+  <style>
+    :root {
+      --primary: #6f5bd6;
+      --bg: #f4f6fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --danger-bg: #fdecea;
+      --danger-text: #b42318;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .wrapper {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header img {
+      height: 32px;
+    }
+
+    .header-text h1 {
+      font-size: 16px;
+      margin: 0 0 2px 0;
+      color: var(--text);
+    }
+
+    .vmm-gradient {
+      background: linear-gradient(90deg, #ff007f, #6f5bd6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .content {
+      padding: 24px;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin: 0 0 6px 0;
+    }
+
+    .helper {
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    label .required {
+      color: #dc2626;
+      margin-left: 2px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    input:required, textarea:required, select:required {
+      border-left: 3px solid #dc2626;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: #d1d5db;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+
+    .review-box {
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .review-item label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+
+    .review-item input {
+      background: white;
+      font-weight: 500;
+    }
+
+    .alert {
+      background: var(--danger-bg);
+      color: var(--danger-text);
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin-top: 16px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .alert.show {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .hindi {
+      color: var(--muted);
+      font-weight: 400;
+      font-size: 12px;
+    }
+
+    .file-hint {
+      font-size: 11px;
+      color: var(--muted);
+      margin: 4px 0 0 0;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+      font-family: inherit;
+      background: white;
+      cursor: pointer;
+    }
+
+    input[type="file"] {
+      padding: 8px;
+      font-size: 12px;
+    }
+
+    footer {
+      padding: 20px 32px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="card">
+    
+    <header>
+      <img src="https://raw.githubusercontent.com/inder20216/openmind-assets/main/logo.png" alt="OpenMind Logo">
+      <div class="header-text">
+        <h1>Rodent Damage Complaint Reporting</h1>
+        <div class="subtitle">For <span class="vmm-gradient">Vishal Mega Mart</span> Stores</div>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- STEP 1: VERIFY MOBILE -->
+      <div class="step active" id="step1">
+        <h2>Verify Employee</h2>
+        <p class="helper">Enter your registered mobile number to continue</p>
+        
+        <div class="form-group">
+          <label>Mobile Number</label>
+          <input type="tel" id="mobileInput" placeholder="10-digit mobile number" maxlength="10">
+        </div>
+
+        <button class="btn-primary" id="verifyBtn" onclick="verifyEmployee()">Verify & Continue</button>
+
+        <div class="alert" id="verifyError">
+          We could not verify your details. Please contact support at <strong>9711772722</strong>
+        </div>
+      </div>
+
+      <!-- STEP 2: REVIEW DETAILS -->
+      <div class="step" id="step2">
+        <h2>✓ Verification Successful</h2>
+        <p class="helper">Please review the details carefully. If incorrect, contact support at <strong>9711772722</strong></p>
+
+        <div class="review-box">
+          <div class="review-grid">
+            <div class="review-item">
+              <label>Employee Name</label>
+              <input type="text" id="empName" readonly>
+            </div>
+            <div class="review-item">
+              <label>Employee Code</label>
+              <input type="text" id="empCode" readonly>
+            </div>
+            <div class="review-item">
+              <label>Email Address</label>
+              <input type="text" id="empEmail" readonly>
+            </div>
+            <div class="review-item">
+              <label>Mobile Number</label>
+              <input type="text" id="empPhone" readonly>
+            </div>
+            <div class="review-item">
+              <label>Store Code</label>
+              <input type="text" id="storeCode" readonly>
+            </div>
+            <div class="review-item">
+              <label>Store Name</label>
+              <input type="text" id="storeName" readonly>
+            </div>
+            <div class="review-item">
+              <label>Store City</label>
+              <input type="text" id="storeCity" readonly>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" onclick="goToStep(1)">← Go Back & Try Different Number</button>
+          <button class="btn-primary" onclick="goToStep(3)">Confirm & Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: COMPLAINT FORM -->
+      <div class="step" id="step3">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h2 style="margin: 0;">Rodent Damage Complaint Form</h2>
+          <button type="button" class="btn-secondary" onclick="logoutUser()" style="padding: 8px 16px; font-size: 13px;">
+            Change Employee
+          </button>
+        </div>
+        <p class="helper">Please fill all required details carefully. Images are mandatory where applicable<br>
+        कृपया सभी विवरण सही-सही भरें। जहाँ आवश्यक हो, वहाँ फोटो अपलोड करना अनिवार्य है।</p>
+
+        <form id="complaintForm" onsubmit="submitComplaint(event)">
+
+          <!-- Product Article No -->
+          <div class="form-group">
+            <label>Product Article No. <span class="required">*</span> <span class="hindi">/ प्रोडक्ट आर्टिकल नंबर</span></label>
+            <input type="text" name="articleNo" required 
+                   placeholder="Enter the product article number / प्रोडक्ट आर्टिकल नंबर दर्ज करें">
+          </div>
+
+          <!-- Product Serial No -->
+          <div class="form-group">
+            <label>Rodent Damage Product Sr No. <span class="required">*</span> <span class="hindi">/ सीरियल नंबर</span></label>
+            <input type="text" name="serialNo" required
+                   placeholder="Enter the serial number / सीरियल नंबर दर्ज करें">
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label>Description <span class="required">*</span> <span class="hindi">/ विवरण</span></label>
+            <textarea name="description" required rows="3"
+                      placeholder="Briefly describe the rodent damage observed / चूहे से हुए नुकसान का संक्षिप्त विवरण दें"></textarea>
+          </div>
+
+          <!-- Product MRP -->
+          <div class="form-group">
+            <label>Rodent Damage Product Value (MRP) <span class="required">*</span> <span class="hindi">/ उत्पाद MRP</span></label>
+            <input type="number" name="mrp" step="0.01" required
+                   placeholder="Enter MRP in numbers (e.g., 137.50) / केवल अंकों में (उदा. 137.50)">
+          </div>
+
+          <!-- Manufacturing Date -->
+          <div class="form-group">
+            <label>Product MFD <span class="required">*</span> <span class="hindi">/ निर्माण तिथि</span></label>
+            <input type="date" name="mfd" required>
+          </div>
+
+          <!-- Expiry Date -->
+          <div class="form-group">
+            <label>Product EXP Date <span class="required">*</span> <span class="hindi">/ समाप्ति तिथि</span></label>
+            <input type="date" name="expDate" required>
+          </div>
+
+          <!-- Expiry Date Image -->
+          <div class="form-group">
+            <label>Product EXP Date Image <span class="required">*</span> <span class="hindi">/ एक्सपायरी डेट की फोटो</span></label>
+            <input type="file" name="expImage" accept="image/*" capture="environment" required>
+            <p class="file-hint">Upload a clear image showing the product expiry date</p>
+          </div>
+
+          <!-- Bite Area Image -->
+          <div class="form-group">
+            <label>Image – Product Bite Area <span class="required">*</span> <span class="hindi">/ चूहे के काटने वाली जगह की फोटो</span></label>
+            <input type="file" name="biteImage" accept="image/*" capture="environment" required>
+            <p class="file-hint">Upload a clear image showing the rodent bite area</p>
+          </div>
+
+          <!-- Gap Before Closing Image -->
+          <div class="form-group">
+            <label>Rodent Gaps Picture (Before Closing) <span class="hindi">/ गैप बंद करने से पहले</span></label>
+            <input type="file" name="gapBeforeImage" accept="image/*" capture="environment">
+            <p class="file-hint">Upload a photo of the gap before it is closed (if available) / गैप बंद करने से पहले की फोटो (यदि उपलब्ध हो)</p>
+          </div>
+
+          <!-- Rodent Gap Status -->
+          <div class="form-group">
+            <label>Rodent Gaps Status <span class="hindi">/ गैप की स्थिति</span></label>
+            <select name="gapStatus" id="gapStatus">
+              <option value="">Select status / स्थिति चुनें</option>
+              <option value="Closed">Closed / बंद</option>
+              <option value="Open">Open / खुला</option>
+            </select>
+          </div>
+
+          <!-- Gap Closing Date -->
+          <div class="form-group">
+            <label>Rodent Gap Closing Date <span class="hindi">/ गैप बंद करने की तारीख</span></label>
+            <input type="date" name="gapClosingDate" id="gapClosingDate">
+            <p class="file-hint">Select the date when the gap was closed (if available) / यदि लागू हो, तो चूहे का गैप बंद करने की तारीख चुनें</p>
+          </div>
+
+          <!-- Gap After Closing Image -->
+          <div class="form-group">
+            <label>Rodent Gaps Picture (After Closing) <span class="hindi">/ गैप बंद करने के बाद</span></label>
+            <input type="file" name="gapAfterImage" accept="image/*" capture="environment" id="gapAfterImage">
+            <p class="file-hint">Upload image after the gap has been closed (if applicable) / यदि लागू हो, तो गैप बंद करने के बाद की फोटो अपलोड करें</p>
+          </div>
+
+          <!-- Auto-filled Employee Details (Hidden) -->
+          <input type="hidden" name="employeeName" id="hiddenEmpName">
+          <input type="hidden" name="employeeCode" id="hiddenEmpCode">
+          <input type="hidden" name="employeeEmail" id="hiddenEmpEmail">
+          <input type="hidden" name="employeePhone" id="hiddenEmpPhone">
+          <input type="hidden" name="storeCode" id="hiddenStoreCode">
+          <input type="hidden" name="storeName" id="hiddenStoreName">
+          <input type="hidden" name="storeCity" id="hiddenStoreCity">
+
+          <button type="submit" class="btn-primary" id="submitBtn">Submit Complaint / शिकायत दर्ज करें</button>
+        </form>
+      </div>
+
+      <!-- STEP 4: SUCCESS MESSAGE -->
+      <div class="step" id="step4">
+        <div style="text-align: center; padding: 40px 20px;">
+          <div style="font-size: 48px; margin-bottom: 16px;">✓</div>
+          <h2>Complaint Submitted Successfully!</h2>
+          <p class="helper">शिकायत सफलतापूर्वक दर्ज की गई!</p>
+          
+          <div style="background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px; padding: 16px; margin: 24px 0;">
+            <p style="margin: 0; color: #15803d; font-weight: 500;">
+              Your complaint has been recorded. You will receive confirmation shortly.<br>
+              <span style="font-size: 13px;">आपकी शिकायत दर्ज कर ली गई है। शीघ्र ही पुष्टि प्राप्त होगी।</span>
+            </p>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn-primary" onclick="submitAnotherComplaint()">
+              Submit Another Complaint / अन्य शिकायत दर्ज करें
+            </button>
+            <button class="btn-secondary" onclick="logoutUser()">
+              Change Employee / कर्मचारी बदलें
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      This page is intended strictly for official use only by Vishal Mega Mart registered employees.<br>
+      Powered by <strong>Open Mind Services Limited</strong>. Unauthorized access or misuse of this system is prohibited.
+    </footer>
+
+  </div>
+</div>
+
+<script>
+const VERIFY_WEBHOOK = 'https://inder20216.app.n8n.cloud/webhook/Rodent Damage Form';
+const SUBMIT_WEBHOOK = 'https://inder20216.app.n8n.cloud/webhook-test/form-submit';
+
+async function verifyEmployee() {
+  const mobile = document.getElementById('mobileInput').value.trim();
+  const errorDiv = document.getElementById('verifyError');
+  const btn = document.getElementById('verifyBtn');
+  
+  errorDiv.classList.remove('show');
+  
+  if (!mobile || mobile.length !== 10) {
+    errorDiv.textContent = 'Please enter a valid 10-digit mobile number';
+    errorDiv.classList.add('show');
+    return;
+  }
+
+  btn.textContent = 'Verifying...';
+  btn.disabled = true;
+
+  try {
+    const response = await fetch(VERIFY_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: mobile })
+    });
+
+    const data = await response.json();
+
+    if (data.success === true) {
+      // Populate review fields
+      document.getElementById('empName').value = data.employee.name || '-';
+      document.getElementById('empCode').value = data.employee.code || '-';
+      document.getElementById('empEmail').value = data.employee.email || '-';
+      document.getElementById('empPhone').value = data.employee.phone || mobile;
+      document.getElementById('storeCode').value = data.store.code || '-';
+      document.getElementById('storeName').value = data.store.name || '-';
+      document.getElementById('storeCity').value = data.store.city || '-';
+
+      // Move to review step
+      goToStep(2);
+    } else {
+      throw new Error('Verification failed');
+    }
+
+  } catch (error) {
+    errorDiv.textContent = 'We could not verify your details. Please contact support at 9711772722';
+    errorDiv.classList.add('show');
+  } finally {
+    btn.textContent = 'Verify & Continue';
+    btn.disabled = false;
+  }
+}
+
+function goToStep(stepNumber) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step' + stepNumber).classList.add('active');
+  
+  // If going to form step, populate hidden fields
+  if (stepNumber === 3) {
+    document.getElementById('hiddenEmpName').value = document.getElementById('empName').value;
+    document.getElementById('hiddenEmpCode').value = document.getElementById('empCode').value;
+    document.getElementById('hiddenEmpEmail').value = document.getElementById('empEmail').value;
+    document.getElementById('hiddenEmpPhone').value = document.getElementById('empPhone').value;
+    document.getElementById('hiddenStoreCode').value = document.getElementById('storeCode').value;
+    document.getElementById('hiddenStoreName').value = document.getElementById('storeName').value;
+    document.getElementById('hiddenStoreCity').value = document.getElementById('storeCity').value;
+  }
+}
+
+async function submitComplaint(event) {
+  event.preventDefault();
+  
+  const form = document.getElementById('complaintForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formData = new FormData(form);
+  
+  submitBtn.textContent = 'Submitting... / जमा हो रहा है...';
+  submitBtn.disabled = true;
+  
+  try {
+    const response = await fetch(SUBMIT_WEBHOOK, {
+      method: 'POST',
+      body: formData // Send as multipart/form-data for file uploads
+    });
+    
+    if (response.ok) {
+      // Success - show success screen
+      goToStep(4);
+    } else {
+      throw new Error('Submission failed');
+    }
+    
+  } catch (error) {
+    alert('Failed to submit complaint. Please try again. / शिकायत दर्ज करने में विफल। कृपया पुनः प्रयास करें।');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Complaint / शिकायत दर्ज करें';
+  }
+}
+
+function submitAnotherComplaint() {
+  // Reset form but keep employee verified
+  document.getElementById('complaintForm').reset();
+  goToStep(3);
+}
+
+function logoutUser() {
+  // Reset everything and go back to verification
+  document.getElementById('complaintForm').reset();
+  document.getElementById('mobileInput').value = '';
+  goToStep(1);
+}
+</script>
+
+</body>
+</html>
