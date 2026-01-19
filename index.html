@@ -618,6 +618,12 @@ function fileToBase64(file) {
 function submitAnotherComplaint() {
   // Reset form but keep employee verified
   document.getElementById('complaintForm').reset();
+  
+  // Re-populate the display fields after reset
+  document.getElementById('displayEmpCode').value = document.getElementById('empCode').value;
+  document.getElementById('displayStoreCode').value = document.getElementById('storeCode').value;
+  document.getElementById('displayStoreName').value = document.getElementById('storeName').value;
+  
   goToStep(3);
 }
 
