@@ -330,23 +330,23 @@
         <p class="helper">Please fill all required details carefully. Images are mandatory where applicable<br>
         कृपया सभी विवरण सही-सही भरें। जहाँ आवश्यक हो, वहाँ फोटो अपलोड करना अनिवार्य है।</p>
 
-       <!-- Employee Info Display -->
-<div class="review-box" style="margin-bottom: 24px;">
-  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
-    <div class="review-item">
-      <label style="font-size: 11px;">Employee ID</label>
-      <input type="text" id="displayEmpCode" readonly style="background: #f9fafb; cursor: default; font-size: 12px; padding: 8px 10px;">
-    </div>
-    <div class="review-item">
-      <label style="font-size: 11px;">Store Code</label>
-      <input type="text" id="displayStoreCode" readonly style="background: #f9fafb; cursor: default; font-size: 12px; padding: 8px 10px;">
-    </div>
-    <div class="review-item">
-      <label style="font-size: 11px;">Store Name</label>
-      <input type="text" id="displayStoreName" readonly style="background: #f9fafb; cursor: default; font-size: 12px; padding: 8px 10px;">
-    </div>
-  </div>
-</div>
+        <!-- Employee Info Display -->
+        <div class="review-box" style="margin-bottom: 24px;">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+            <div class="review-item">
+              <label style="font-size: 11px;">Employee ID</label>
+              <input type="text" id="displayEmpCode" readonly style="background: #f9fafb; cursor: default; font-size: 12px; padding: 8px 10px;">
+            </div>
+            <div class="review-item">
+              <label style="font-size: 11px;">Store Code</label>
+              <input type="text" id="displayStoreCode" readonly style="background: #f9fafb; cursor: default; font-size: 12px; padding: 8px 10px;">
+            </div>
+            <div class="review-item">
+              <label style="font-size: 11px;">Store Name</label>
+              <input type="text" id="displayStoreName" readonly style="background: #f9fafb; cursor: default; font-size: 12px; padding: 8px 10px;">
+            </div>
+          </div>
+        </div>
 
         <form id="complaintForm" onsubmit="submitComplaint(event)">
 
@@ -513,7 +513,6 @@ async function verifyEmployee() {
     const data = await response.json();
 
     if (data.success === true) {
-      // Populate review fields
       document.getElementById('empName').value = data.employee.name || '-';
       document.getElementById('empCode').value = data.employee.code || '-';
       document.getElementById('empEmail').value = data.employee.email || '-';
@@ -522,7 +521,6 @@ async function verifyEmployee() {
       document.getElementById('storeName').value = data.store.name || '-';
       document.getElementById('storeCity').value = data.store.city || '-';
 
-      // Move to review step
       goToStep(2);
     } else {
       throw new Error('Verification failed');
@@ -541,7 +539,6 @@ function goToStep(stepNumber) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById('step' + stepNumber).classList.add('active');
   
-  // If going to form step, populate hidden fields AND display fields
   if (stepNumber === 3) {
     document.getElementById('hiddenEmpName').value = document.getElementById('empName').value;
     document.getElementById('hiddenEmpCode').value = document.getElementById('empCode').value;
@@ -551,11 +548,19 @@ function goToStep(stepNumber) {
     document.getElementById('hiddenStoreName').value = document.getElementById('storeName').value;
     document.getElementById('hiddenStoreCity').value = document.getElementById('storeCity').value;
     
-    // Populate display fields at top of form
-document.getElementById('displayEmpCode').value = document.getElementById('empCode').value;
-document.getElementById('displayStoreCode').value = document.getElementById('storeCode').value;
-document.getElementById('displayStoreName').value = document.getElementById('storeName').value;
+    document.getElementById('displayEmpCode').value = document.getElementById('empCode').value;
+    document.getElementById('displayStoreCode').value = document.getElementById('storeCode').value;
+    document.getElementById('displayStoreName').value = document.getElementById('storeName').value;
   }
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
 
 async function submitComplaint(event) {
@@ -568,12 +573,10 @@ async function submitComplaint(event) {
   submitBtn.textContent = 'Submitting... / जमा हो रहा है...';
   submitBtn.disabled = true;
   
-  // Convert FormData to JSON with base64 files
   const jsonData = {};
   
   for (let [key, value] of formData.entries()) {
     if (value instanceof File && value.size > 0) {
-      // Convert file to base64
       const base64 = await fileToBase64(value);
       jsonData[key] = {
         filename: value.name,
@@ -605,21 +608,13 @@ async function submitComplaint(event) {
   }
 }
 
-// Add this helper function
-function fileToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result.split(',')[1]);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-
 function submitAnotherComplaint() {
-  // Reset form but keep employee verified
   document.getElementById('complaintForm').reset();
   
-  // Re-populate the display fields after reset
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Submit Complaint / शिकायत दर्ज करें';
+  
   document.getElementById('displayEmpCode').value = document.getElementById('empCode').value;
   document.getElementById('displayStoreCode').value = document.getElementById('storeCode').value;
   document.getElementById('displayStoreName').value = document.getElementById('storeName').value;
@@ -628,7 +623,6 @@ function submitAnotherComplaint() {
 }
 
 function logoutUser() {
-  // Reset everything and go back to verification
   document.getElementById('complaintForm').reset();
   document.getElementById('mobileInput').value = '';
   goToStep(1);
@@ -636,5 +630,4 @@ function logoutUser() {
 </script>
 
 </body>
-
 </html>
