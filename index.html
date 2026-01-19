@@ -330,23 +330,23 @@
         <p class="helper">Please fill all required details carefully. Images are mandatory where applicable<br>
         कृपया सभी विवरण सही-सही भरें। जहाँ आवश्यक हो, वहाँ फोटो अपलोड करना अनिवार्य है।</p>
 
-        <!-- Employee Info Display -->
-        <div class="review-box" style="margin-bottom: 24px;">
-          <div class="review-grid">
-            <div class="review-item">
-              <label>Employee ID</label>
-              <input type="text" id="displayEmpCode" readonly style="background: #f9fafb; cursor: default;">
-            </div>
-            <div class="review-item">
-              <label>Store</label>
-              <input type="text" id="displayStoreName" readonly style="background: #f9fafb; cursor: default;">
-            </div>
-            <div class="review-item" style="grid-column: 1 / -1;">
-              <label>Store City</label>
-              <input type="text" id="displayStoreCity" readonly style="background: #f9fafb; cursor: default;">
-            </div>
-          </div>
-        </div>
+       <!-- Employee Info Display -->
+<div class="review-box" style="margin-bottom: 24px;">
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+    <div class="review-item">
+      <label style="font-size: 11px;">Employee ID</label>
+      <input type="text" id="displayEmpCode" readonly style="background: #f9fafb; cursor: default; font-size: 12px; padding: 8px 10px;">
+    </div>
+    <div class="review-item">
+      <label style="font-size: 11px;">Store Code</label>
+      <input type="text" id="displayStoreCode" readonly style="background: #f9fafb; cursor: default; font-size: 12px; padding: 8px 10px;">
+    </div>
+    <div class="review-item">
+      <label style="font-size: 11px;">Store Name</label>
+      <input type="text" id="displayStoreName" readonly style="background: #f9fafb; cursor: default; font-size: 12px; padding: 8px 10px;">
+    </div>
+  </div>
+</div>
 
         <form id="complaintForm" onsubmit="submitComplaint(event)">
 
@@ -552,9 +552,9 @@ function goToStep(stepNumber) {
     document.getElementById('hiddenStoreCity').value = document.getElementById('storeCity').value;
     
     // Populate display fields at top of form
-    document.getElementById('displayEmpCode').value = document.getElementById('empCode').value;
-    document.getElementById('displayStoreName').value = document.getElementById('storeName').value;
-    document.getElementById('displayStoreCity').value = document.getElementById('storeCity').value;
+document.getElementById('displayEmpCode').value = document.getElementById('empCode').value;
+document.getElementById('displayStoreCode').value = document.getElementById('storeCode').value;
+document.getElementById('displayStoreName').value = document.getElementById('storeName').value;
   }
 }
 
