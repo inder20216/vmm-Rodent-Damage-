@@ -330,6 +330,24 @@
         <p class="helper">Please fill all required details carefully. Images are mandatory where applicable<br>
         कृपया सभी विवरण सही-सही भरें। जहाँ आवश्यक हो, वहाँ फोटो अपलोड करना अनिवार्य है।</p>
 
+        <!-- Employee Info Display -->
+        <div class="review-box" style="margin-bottom: 24px;">
+          <div class="review-grid">
+            <div class="review-item">
+              <label>Employee ID</label>
+              <input type="text" id="displayEmpCode" readonly style="background: #f9fafb; cursor: default;">
+            </div>
+            <div class="review-item">
+              <label>Store</label>
+              <input type="text" id="displayStoreName" readonly style="background: #f9fafb; cursor: default;">
+            </div>
+            <div class="review-item" style="grid-column: 1 / -1;">
+              <label>Store City</label>
+              <input type="text" id="displayStoreCity" readonly style="background: #f9fafb; cursor: default;">
+            </div>
+          </div>
+        </div>
+
         <form id="complaintForm" onsubmit="submitComplaint(event)">
 
           <!-- Product Article No -->
@@ -523,7 +541,7 @@ function goToStep(stepNumber) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById('step' + stepNumber).classList.add('active');
   
-  // If going to form step, populate hidden fields
+  // If going to form step, populate hidden fields AND display fields
   if (stepNumber === 3) {
     document.getElementById('hiddenEmpName').value = document.getElementById('empName').value;
     document.getElementById('hiddenEmpCode').value = document.getElementById('empCode').value;
@@ -532,6 +550,11 @@ function goToStep(stepNumber) {
     document.getElementById('hiddenStoreCode').value = document.getElementById('storeCode').value;
     document.getElementById('hiddenStoreName').value = document.getElementById('storeName').value;
     document.getElementById('hiddenStoreCity').value = document.getElementById('storeCity').value;
+    
+    // Populate display fields at top of form
+    document.getElementById('displayEmpCode').value = document.getElementById('empCode').value;
+    document.getElementById('displayStoreName').value = document.getElementById('storeName').value;
+    document.getElementById('displayStoreCity').value = document.getElementById('storeCity').value;
   }
 }
 
@@ -582,4 +605,3 @@ function logoutUser() {
 </body>
 
 </html>
-
